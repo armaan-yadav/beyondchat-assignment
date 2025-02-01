@@ -1,7 +1,6 @@
 
-type Props = {};
 
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <footer className="bg-black text-white text-center py-6">
       <p className="text-gray-400">© 2025 BrandName. All Rights Reserved.</p>

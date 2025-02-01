@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
 import LoadingProgressBar from "@/components/shared/LoadingProgressBar";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { scrapedPages } from "@/data";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const SetupStep2 = () => {
   const [showPages, setShowPages] = useState(false);

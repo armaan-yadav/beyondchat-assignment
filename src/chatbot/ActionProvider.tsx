@@ -20,11 +20,7 @@ interface Props {
   children: ReactNode;
 }
 
-const ActionProvider: React.FC<Props> = ({
-  createChatBotMessage,
-  setState,
-  children,
-}) => {
+const ActionProvider: React.FC<Props> = ({ children }) => {
   return (
     <div>
       {React.Children.map(children, (child) => {

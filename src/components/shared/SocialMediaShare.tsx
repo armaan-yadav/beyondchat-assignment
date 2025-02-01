@@ -28,7 +28,7 @@ const SocialMediaShare = () => {
   return (
     <div className="max-w-md mx-auto p-4">
       <div className="flex flex-wrap items-center justify-center gap-4 rounded-lg bg-white/5 backdrop-blur-sm p-4 shadow-lg">
-        {socialIcons.map(({ Icon, color, label, url }) => (
+        {socialIcons.map(({ Icon, label, url }) => (
           <div key={label} className="relative group">
             <a
               href={url}

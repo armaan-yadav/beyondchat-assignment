@@ -2,9 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 
-type Props = {};
-
-const LandingPage = (props: Props) => {
+const LandingPage = () => {
   return (
     <section className="h-screen flex flex-col justify-center items-center text-center px-6 md:px-12 bg-gradient-to-r from-blue-200 to-indigo-300">
       <motion.h2

@@ -1,10 +1,7 @@
 import { Button } from "@/components/ui/button";
-import React from "react";
 import { Link } from "react-router";
 
-type Props = {};
-
-const FailurePage = (props: Props) => {
+const FailurePage = () => {
   return (
     <div>
       OOPS! Something went wrong. Please try again

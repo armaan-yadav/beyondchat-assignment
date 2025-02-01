@@ -48,7 +48,7 @@ const SetupPage = () => {
             header="Organization Setup"
             pt={{
               content: { className: "py-4" },
-              header: { className: "text-[12px] lg:text-lg font-semibold" },
+              header: { className: "text-[sm] lg:text-lg font-semibold" },
             }}
           >
             <AnimatePresence mode="wait">
@@ -125,7 +125,7 @@ const SetupPage = () => {
             header="Integration"
             pt={{
               content: { className: "py-4" },
-              header: { className: "text-[12px] font-semibold" },
+              header: { className: "text-sm font-semibold" },
             }}
           >
             <AnimatePresence mode="wait">
@@ -139,7 +139,7 @@ const SetupPage = () => {
                 className="w-full"
               >
                 <div className="mb-6">
-                  <SetupStep3 companyUrl={companyUrl} />
+                  <SetupStep3 />
                 </div>
                 <div className="flex justify-start pt-4">
                   <Button

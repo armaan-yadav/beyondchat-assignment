@@ -1,24 +1,20 @@
-import { IoSendOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { FaRegCopy } from "react-icons/fa";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
+import { IoSendOutline } from "react-icons/io5";
 import { Link } from "react-router";
 
-interface Props {
-  companyUrl: string;
-}
-
-const SetupStep3 = (props: Props) => {
+const SetupStep3 = () => {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

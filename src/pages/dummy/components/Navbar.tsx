@@ -1,9 +1,7 @@
 import { Button } from '@/components/ui/button'
-import React from 'react'
 
-type Props = {}
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full bg-white shadow-md p-4 flex justify-between items-center px-6 md:px-12 z-50">
     <h1 className="text-2xl font-semibold">BrandName</h1>

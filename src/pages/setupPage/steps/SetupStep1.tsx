@@ -8,11 +8,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { motion } from "framer-motion";
-import { AlertCircle } from "lucide-react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Loader2 } from "lucide-react"; // Import for loading spinner
 import { Textarea } from "@/components/ui/textarea";
+import { motion } from "framer-motion";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface Props {
   companyUrl: string;
@@ -31,8 +30,6 @@ interface MetaDataResponse {
 }
 
 const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
-  const [companyName, setCompanyName] = useState("");
-  const [companyDescription, setCompanyDescription] = useState("");
   const [metadata, setMetadata] = useState<MetaDataResponse | null>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [errors, setErrors] = useState({

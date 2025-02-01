@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { CardTitle } from "../ui/card";
 
 const LoadingProgressBar = () => {
   const [progress, setProgress] = useState(0);
