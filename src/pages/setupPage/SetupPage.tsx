@@ -1,15 +1,19 @@
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Steps } from "primereact/steps";
-import { scrapedPages, setupItems } from "@/data";
+import { AnimatePresence, motion } from "framer-motion";
+import type { StepperRefAttributes } from "primereact/stepper";
+import { Stepper } from "primereact/stepper";
+import { StepperPanel } from "primereact/stepperpanel";
+import { useRef, useState } from "react";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import SetupStep1 from "./steps/SetupStep1";
 import SetupStep2 from "./steps/SetupStep2";
-import { motion, AnimatePresence } from "framer-motion";
 import SetupStep3 from "./steps/SetupStep3";
 
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+
 const SetupPage = () => {
-  const [activeIndex, setActiveIndex] = useState(2);
+  const [companyUrl, setCompanyUrl] = useState("");
+  const stepperRef = useRef<StepperRefAttributes>(null);
 
   const pageVariants = {
     initial: { opacity: 0, x: 100 },
@@ -23,56 +27,134 @@ const SetupPage = () => {
     duration: 0.5,
   };
 
-  const renderStep1 = () => <SetupStep1 />;
-  const renderStep2 = () => <SetupStep2 />;
-  const renderStep3 = () => <SetupStep3 />;
+  const stepperStyle = {
+    root: { width: "100%" },
+    container: { maxWidth: "64rem", margin: "0 auto", padding: "1rem" },
+  };
 
-  const steps = [renderStep1(), renderStep2(), renderStep3()];
+  const handleNext = () => {
+    stepperRef.current?.nextCallback();
+  };
+
+  const handlePrev = () => {
+    stepperRef.current?.prevCallback();
+  };
 
   return (
-    <div className="relative overflow-hidden max-w-full">
-      <div className="container mx-auto px-4">
-        <Steps
-          model={setupItems}
-          activeIndex={activeIndex}
-          onSelect={(e) => setActiveIndex(e.index)}
-          className="custom-steps mb-4"
-        />
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-            className="w-full"
+    <div className="relative overflow-hidden max-w-full py-4">
+      <div className="lg:mx-auto lg:max-w-4xl">
+        <Stepper ref={stepperRef} pt={stepperStyle}>
+          <StepperPanel
+            header="Organization Setup"
+            pt={{
+              content: { className: "py-4" },
+              header: { className: "text-[12px] lg:text-lg font-semibold" },
+            }}
           >
-            {steps[activeIndex]}
-          </motion.div>
-        </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key="step1"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+                className="w-full"
+              >
+                <div className="mb-6">
+                  <SetupStep1
+                    companyUrl={companyUrl}
+                    setCompanyUrl={setCompanyUrl}
+                  />
+                </div>
+                <div className="flex justify-end pt-4">
+                  <Button
+                    className="flex items-center gap-2"
+                    onClick={handleNext}
+                  >
+                    Next
+                    <MdNavigateNext />
+                  </Button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </StepperPanel>
 
-        <div className="flex justify-end gap-4 mt-4">
-          {activeIndex > 0 && (
-            <Button
-              onClick={() => setActiveIndex((prev) => prev - 1)}
-              disabled={activeIndex === 0}
-              className=" transition-colors px-5 py-2 border rounded-md"
-            >
-              Back
-            </Button>
-          )}
+          <StepperPanel
+            header="Chatbot Configuration"
+            pt={{
+              content: { className: "py-4" },
+              header: { className: "text-[12px] lg:text-lg font-semibold" },
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key="step2"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+                className="w-full"
+              >
+                <div className="mb-6">
+                  <SetupStep2 />
+                </div>
+                <div className="flex justify-between pt-4">
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2"
+                    onClick={handlePrev}
+                  >
+                    <MdNavigateBefore />
+                    Back
+                  </Button>
+                  <Button
+                    className="flex items-center gap-2"
+                    onClick={handleNext}
+                  >
+                    Next
+                    <MdNavigateNext />
+                  </Button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </StepperPanel>
 
-          {activeIndex < 2 && (
-            <Button
-              onClick={() => setActiveIndex((prev) => prev + 1)}
-              className="  transition-colors px-5 py-2 rounded-md"
-            >
-              Next
-            </Button>
-          )}
-        </div>
+          <StepperPanel
+            header="Integration"
+            pt={{
+              content: { className: "py-4" },
+              header: { className: "text-[12px] font-semibold" },
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key="step3"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+                className="w-full"
+              >
+                <div className="mb-6">
+                  <SetupStep3 companyUrl={companyUrl} />
+                </div>
+                <div className="flex justify-start pt-4">
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2"
+                    onClick={handlePrev}
+                  >
+                    <MdNavigateBefore />
+                    Back
+                  </Button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </StepperPanel>
+        </Stepper>
       </div>
     </div>
   );

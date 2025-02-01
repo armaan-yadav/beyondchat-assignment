@@ -80,3 +80,26 @@ html {
   padding-bottom: 5px;
   transition: all 0.1s;
 }
+
+.react-chatbot-kit-chat-container {
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.setup-stepper .p-stepper-step-active .p-menuitem-link {
+  background-color: var(--primary-color) !important;
+}
+
+.setup-stepper .p-stepper-step-active .p-menuitem-text {
+  color: white !important;
+}
+
+.setup-stepper .p-stepper-step-complete .p-menuitem-link {
+  background-color: var(--primary-color) !important;
+  opacity: 0.8;
+}
+
+.setup-stepper .p-stepper-step-complete .p-menuitem-text {
+  color: white !important;
+}

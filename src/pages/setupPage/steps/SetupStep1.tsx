@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,89 +8,115 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { motion } from "framer-motion";
 import { AlertCircle } from "lucide-react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Loader2 } from "lucide-react"; // Import for loading spinner
+import { Textarea } from "@/components/ui/textarea";
 
-const SetupStep1 = () => {
+interface Props {
+  companyUrl: string;
+  setCompanyUrl: Dispatch<SetStateAction<string>>;
+}
+
+interface MetaDataResponse {
+  description: string;
+  domain: string;
+  duration: number;
+  favicon: string;
+  images: string[];
+  sitename: string;
+  title: string;
+  url: string;
+}
+
+const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
   const [companyName, setCompanyName] = useState("");
-  const [companyUrl, setCompanyUrl] = useState("");
   const [companyDescription, setCompanyDescription] = useState("");
+  const [metadata, setMetadata] = useState<MetaDataResponse | null>();
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [errors, setErrors] = useState({
     name: "",
     url: "",
     description: "",
   });
 
-  const validateForm = () => {
-    const newErrors = {
-      name: companyName.trim() ? "" : "Organization name is required",
-      url: companyUrl.trim() ? "" : "Organization URL is required",
-      description:
-        companyDescription.trim().length >= 10
-          ? ""
-          : "Description must be at least 10 characters",
-    };
-    setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error !== "");
-  };
+  const [isUrlValid, setIsUrlValid] = useState<boolean>(true);
 
   const inputVariants = {
     initial: { opacity: 0, x: -20 },
     animate: { opacity: 1, x: 0 },
   };
 
+  const urlRegex =
+    /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/[a-zA-Z0-9#]+\/?)*\/?$/;
+
+  const validateUrl = (url: string) => {
+    const isValid = urlRegex.test(url);
+    setIsUrlValid(isValid);
+    if (!isValid) {
+      setErrors((prev) => ({ ...prev, url: "Invalid URL format" }));
+    } else {
+      setErrors((prev) => ({ ...prev, url: "" }));
+    }
+  };
+
+  const fetchMetaData = async () => {
+    validateUrl(companyUrl);
+
+    if (!isUrlValid) {
+      return;
+    }
+
+    const apiUrl = `https://jsonlink.io/api/extract?url=${companyUrl}&api_key=${
+      import.meta.env.VITE_METADATA_API_KEY
+    }`;
+    setIsFetching(true);
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setMetadata(data as MetaDataResponse);
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
+      })
+      .finally(() => {
+        setIsFetching(false);
+      });
+  };
+
   return (
-    <Card>
+    <Card className="shadow-lg rounded-lg bg-white">
       <CardHeader>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <CardTitle>Setup a new Organization</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-xl font-semibold text-gray-800">
+            Setup a new Organization
+          </CardTitle>
+          <CardDescription className="text-gray-600">
             Enter the details of your organization
           </CardDescription>
         </motion.div>
       </CardHeader>
 
-      <CardContent className="space-y-4">
-        <motion.div
-          variants={inputVariants}
-          initial="initial"
-          animate="animate"
-          transition={{ delay: 0.1 }}
-        >
-          <Label htmlFor="name">Organization Name</Label>
-          <Input
-            type="text"
-            name="name"
-            value={companyName}
-            onChange={(e) => {
-              setCompanyName(e.target.value);
-              setErrors((prev) => ({ ...prev, name: "" }));
-            }}
-            placeholder="BeyondChats"
-            className={errors.name ? "border-red-500" : ""}
-          />
-          {errors.name && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-red-500 text-sm mt-1 flex items-center"
-            >
-              <AlertCircle className="mr-2 h-4 w-4" />
-              {errors.name}
-            </motion.div>
-          )}
-        </motion.div>
-
+      <CardContent className="space-y-6">
         <motion.div
           variants={inputVariants}
           initial="initial"
           animate="animate"
           transition={{ delay: 0.2 }}
         >
-          <Label htmlFor="url">Organization URL</Label>
+          <Label htmlFor="url" className="text-sm font-medium text-gray-700">
+            Organization URL
+          </Label>
           <Input
             type="text"
             placeholder="www.beyondchats.com"
@@ -99,9 +124,10 @@ const SetupStep1 = () => {
             value={companyUrl}
             onChange={(e) => {
               setCompanyUrl(e.target.value);
-              setErrors((prev) => ({ ...prev, url: "" }));
             }}
-            className={errors.url ? "border-red-500" : ""}
+            className={`${
+              errors.url ? "border-red-500" : "border-gray-300"
+            } p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition`}
           />
           {errors.url && (
             <motion.div
@@ -115,35 +141,68 @@ const SetupStep1 = () => {
           )}
         </motion.div>
 
-        <motion.div
-          variants={inputVariants}
-          initial="initial"
-          animate="animate"
-          transition={{ delay: 0.3 }}
+        <Button
+          onClick={fetchMetaData}
+          disabled={!isUrlValid || isFetching}
+          className="w-full py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-200"
         >
-          <Label htmlFor="description">Organization Description</Label>
-          <Input
-            type="text"
-            placeholder="Tell us something about your organization."
-            name="description"
-            value={companyDescription}
-            onChange={(e) => {
-              setCompanyDescription(e.target.value);
-              setErrors((prev) => ({ ...prev, description: "" }));
-            }}
-            className={errors.description ? "border-red-500" : ""}
-          />
-          {errors.description && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-red-500 text-sm mt-1 flex items-center"
-            >
-              <AlertCircle className="mr-2 h-4 w-4" />
-              {errors.description}
-            </motion.div>
+          {isFetching ? (
+            <Loader2 className="animate-spin mr-2 h-5 w-5" />
+          ) : (
+            "Auto Fetch"
           )}
-        </motion.div>
+        </Button>
+
+        {metadata && (
+          <div className="space-y-4 mt-6">
+            <div className="flex items-center">
+              <img
+                src={metadata.favicon}
+                alt="Favicon"
+                className="w-8 h-8 mr-4"
+              />
+              <span className="font-medium">{metadata.sitename}</span>
+            </div>
+            <Label
+              htmlFor="sitename"
+              className="text-sm font-medium text-gray-700"
+            >
+              Sitename
+            </Label>
+            <Input
+              value={metadata.sitename}
+              name="sitename"
+              readOnly
+              className="border-gray-300 p-3 rounded-lg"
+            />
+
+            <Label
+              htmlFor="title"
+              className="text-sm font-medium text-gray-700"
+            >
+              Title
+            </Label>
+            <Input
+              value={metadata.title}
+              name="title"
+              readOnly
+              className="border-gray-300 p-3 rounded-lg"
+            />
+
+            <Label
+              htmlFor="description"
+              className="text-sm font-medium text-gray-700"
+            >
+              Description
+            </Label>
+            <Textarea
+              value={metadata.description}
+              name="description"
+              readOnly
+              className="border-gray-300 p-3 rounded-lg"
+            />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

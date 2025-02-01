@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import confetti from "canvas-confetti";
-import { Button } from "@/components/ui/button";
 import SocialMediaShare from "@/components/shared/SocialMediaShare";
+import { Button } from "@/components/ui/button";
+import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
-import { RocketIcon, LayoutDashboard, MessageSquare } from "lucide-react";
+import { LayoutDashboard, MessageSquare, RocketIcon } from "lucide-react";
+import { useEffect } from "react";
+import { Link } from "react-router";
 
 const SuccessPage = () => {
   useEffect(() => {
@@ -58,7 +59,7 @@ const SuccessPage = () => {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
-            Mission accomplished!
+            Yayyyy, Chatbot Added!
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto">
@@ -73,22 +74,26 @@ const SuccessPage = () => {
           transition={{ delay: 0.6 }}
           className="flex flex-col md:flex-row gap-4 justify-center items-center"
         >
-          <Button
-            size="lg"
-            className="w-full md:w-auto group transform transition-all duration-200 hover:scale-105"
-          >
-            <LayoutDashboard className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
-            Explore Admin Panel
-          </Button>
+          <Link to={"/admin"}>
+            <Button
+              size="lg"
+              className="w-full md:w-auto group transform transition-all duration-200 hover:scale-105"
+            >
+              <LayoutDashboard className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
+              Explore Admin Panel
+            </Button>
+          </Link>
 
-          <Button
-            size="lg"
-            variant="secondary"
-            className="w-full md:w-auto group transform transition-all duration-200 hover:scale-105"
-          >
-            <MessageSquare className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
-            Start talking to your chatbot
-          </Button>
+          <Link to={"/chatbot"}>
+            <Button
+              size="lg"
+              variant="secondary"
+              className="w-full md:w-auto group transform transition-all duration-200 hover:scale-105"
+            >
+              <MessageSquare className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
+              Start talking to your chatbot
+            </Button>
+          </Link>
         </motion.div>
 
         <motion.div

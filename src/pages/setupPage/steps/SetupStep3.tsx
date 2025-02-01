@@ -1,87 +1,123 @@
 import { IoSendOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
-
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { FaRegCopy } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router";
 
-type Props = {};
+interface Props {
+  companyUrl: string;
+}
 
 const SetupStep3 = (props: Props) => {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
   const isValidEmail = email.length > 0 && emailRegex.test(email);
-  return (
-    <Card>
-      <Button
-        className="w-full"
-        onClick={() => {
-          // TODO open client ki website and add chatbot along with top bar of share feedback
-        }}
-      >
-        Test Chatbot
-      </Button>
 
-      <Card>
-        <CardHeader>Integrate on your webiste</CardHeader>
+  const handleCopyCode = () => {
+    const code = '<script src="https://beyondchats.com/widget.js"></script>';
+    navigator.clipboard.writeText(code);
+    toast({
+      title: "Success!",
+      description: "Code copied to clipboard",
+      duration: 1500,
+    });
+  };
+
+  return (
+    <div className="space-y-6 sm:space-y-8 ">
+      <Card className="border-2 border-blue-100">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">
+            Test Your Chatbot
+          </CardTitle>
+          <CardDescription>
+            Preview how your chatbot will appear to users
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Link to="/dummy">
+            <Button className="w-full bg-blue-600 hover:bg-blue-700">
+              Launch Test Environment
+            </Button>
+          </Link>
+        </CardContent>
+      </Card>
+
+      <Card className="border-2 border-blue-100">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">
+            Website Integration
+          </CardTitle>
+          <CardDescription>
+            Choose how you want to integrate the chatbot
+          </CardDescription>
+        </CardHeader>
         <CardContent>
           <Tabs defaultValue="copy" className="w-full">
-            <TabsList className="w-full">
-              <TabsTrigger value="copy" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 gap-4 mb-6 sm:gap-8">
+              <TabsTrigger value="copy" className="text-sm font-medium">
                 Copy Code
               </TabsTrigger>
-              <TabsTrigger value="email" className="w-full">
-                Email Instructions
+              <TabsTrigger value="email" className="text-sm font-medium">
+                Email to Developer
               </TabsTrigger>
             </TabsList>
+
             <TabsContent value="copy">
-              <Card>
-                <CardContent className="pt-4">
-                  <code className="block bg-gray-50 p-4 rounded overflow-x-auto">
-                    {
-                      '<script src="https://beyondchats.com/widget.js"> //The code which adds the chatbot to the user\'s website </script>'
-                    }
-                  </code>
+              <Card className="border border-gray-200">
+                <CardContent className="pt-6">
+                  <div className="bg-gray-50 p-4 rounded-lg relative group">
+                    <code className="block font-mono text-sm overflow-x-auto">
+                      {
+                        '<script src="https://beyondchats.com/widget.js"></script>'
+                      }
+                    </code>
+                  </div>
                   <Button
-                    className="mt-4"
-                    onClick={() => {
-                      navigator.clipboard.writeText("I am the  code");
-                      toast({
-                        description: "Code copied to Clipboard !",
-                        duration: 1500,
-                      });
-                    }}
+                    className="mt-4 w-full sm:w-auto flex items-center justify-center gap-2"
+                    onClick={handleCopyCode}
                   >
-                    <FaRegCopy />
+                    <FaRegCopy className="w-4 h-4" />
                     Copy Code
                   </Button>
                 </CardContent>
               </Card>
             </TabsContent>
+
             <TabsContent value="email">
-              <Card>
-                <CardContent className="pt-4">
-                  <Input
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    placeholder="Developer's email"
-                  />
-                  {email.length > 0 && !isValidEmail && (
-                    <p className="text-red-500 text-sm">
-                      Please enter a valid email address
-                    </p>
-                  )}
+              <Card className="border border-gray-200">
+                <CardContent className="pt-6 space-y-4">
+                  <div className="space-y-2">
+                    <Input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      type="email"
+                      placeholder="Enter developer's email address"
+                      className="w-full"
+                    />
+                    {email.length > 0 && !isValidEmail && (
+                      <p className="text-red-500 text-sm">
+                        Please enter a valid email address
+                      </p>
+                    )}
+                  </div>
                   <Button
-                    className="mt-4 flex items-center gap-2"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2"
                     disabled={!isValidEmail}
                   >
                     <IoSendOutline className="w-4 h-4" />
-                    Send Email
+                    Send Instructions
                   </Button>
                 </CardContent>
               </Card>
@@ -90,10 +126,24 @@ const SetupStep3 = (props: Props) => {
         </CardContent>
       </Card>
 
-      <Button className="w-full" onClick={() => {}}>
-        Test Integration
-      </Button>
-    </Card>
+      <Card className="border-2 border-blue-100">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">
+            Verify Integration
+          </CardTitle>
+          <CardDescription>
+            Make sure everything is working correctly
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Link to={"/success"}>
+            <Button className="w-full bg-green-600 hover:bg-green-700">
+              Run Integration Test
+            </Button>
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
