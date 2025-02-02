@@ -9,6 +9,7 @@ import { MouseEventHandler, useState } from "react";
 import "react-chatbot-kit/build/main.css";
 import LandingPage from "./components/LandingPage";
 import IConfig from "react-chatbot-kit/build/src/interfaces/IConfig";
+import { Link } from "react-router";
 
 const FloatingChatButton = ({
   isOpen,
@@ -16,17 +17,30 @@ const FloatingChatButton = ({
 }: {
   isOpen: boolean;
   onClick: MouseEventHandler;
-}) => (
-  <div className="fixed bottom-6 right-6 flex items-center justify-center flex-col gap-2">
-    {!isOpen && <p className="text-white text-sm">Click to test chatbot</p>}
-    <Button
-      onClick={onClick}
-      className=" w-12 h-12 rounded-full shadow-lg flex items-center justify-center bg-white text-black hover:bg-white/70"
-    >
-      {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-    </Button>
-  </div>
-);
+}) => {
+  return (
+    <div className="fixed bottom-6 right-6 flex items-center justify-center flex-col gap-2">
+      {!isOpen && (
+        <p className="text-black text-sm animate-fade-in">
+          Click to test chatbot
+        </p>
+      )}
+      <Button
+        onClick={onClick}
+        className={`
+          w-12 h-12 rounded-full 
+          shadow-lg flex items-center justify-center 
+          bg-white text-black hover:bg-white/70
+          transition-all duration-500
+       ${!isOpen && "animate-bounce hover:animate-none"}
+          hover:scale-110
+        `}
+      >
+        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+      </Button>
+    </div>
+  );
+};
 
 const ChatbotContainer = ({ isOpen }: { isOpen: boolean }) => (
   <motion.div
@@ -45,6 +59,12 @@ const ChatbotContainer = ({ isOpen }: { isOpen: boolean }) => (
       actionProvider={ActionProvider}
       messageParser={MessageParser}
     />
+    <p className="text-black text-[10px] text-center">
+      Chatbot not working as intended?
+      <Link to={"/feedback"}>
+        <span className="underline">Share Feedback</span>
+      </Link>
+    </p>
   </motion.div>
 );
 
@@ -56,9 +76,7 @@ const DummyWebsite = () => {
 
   return (
     <div className="w-full relative">
-      {/* <Navbar /> */}
       <LandingPage />
-      {/* <Footer /> */}
       <FloatingChatButton isOpen={isChatbotOpen} onClick={toggleChatbot} />
       <ChatbotContainer isOpen={isChatbotOpen} />
     </div>

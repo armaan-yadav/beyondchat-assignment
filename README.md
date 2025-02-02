@@ -14,6 +14,8 @@ The website name is **BeyondChat** (not so unique i know :) ). 🚀
 ✅ **Auto-fetch Website Metadata** – Extracts metadata from URLs  
 ✅ **Realtime Email OTP Authentication** – Secure login system  
 ✅ **Minimalistic & Responsive Design** – Works seamlessly across all devices
+✅ **Minimilistic Animation using Framer** – Seamless animations
+✅ **Context API** – In-built Context for State Management
 
 ---
 
@@ -23,6 +25,7 @@ The website name is **BeyondChat** (not so unique i know :) ). 🚀
 - **Tailwind CSS** – For styling
 - **Appwrite** – Authentication & OTP functionality
 - **ShadCN & PrimeReact** – UI components & enhancements
+- **Framer** – Animations
 
 ---
 

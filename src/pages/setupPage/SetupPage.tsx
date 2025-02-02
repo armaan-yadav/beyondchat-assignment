@@ -48,7 +48,7 @@ const SetupPage = () => {
             header="Organization Setup"
             pt={{
               content: { className: "py-4" },
-              header: { className: "text-[sm] lg:text-lg font-semibold" },
+              header: { className: "text-[12px] lg:text-lg font-semibold" },
             }}
           >
             <AnimatePresence mode="wait">
@@ -125,7 +125,7 @@ const SetupPage = () => {
             header="Integration"
             pt={{
               content: { className: "py-4" },
-              header: { className: "text-sm font-semibold" },
+              header: { className: "text-[12px] lg:text-lg font-semibold" },
             }}
           >
             <AnimatePresence mode="wait">

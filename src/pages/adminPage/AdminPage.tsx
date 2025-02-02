@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 const AdminPanel = () => {
   const webpages = [
@@ -76,15 +77,22 @@ const AdminPanel = () => {
 
             <div className="bg-white p-4 rounded mb-6 border border-gray-300">
               <h3 className="text-lg font-semibold">Chatbot Integration</h3>
-              <button className="bg-white text-black p-2 rounded mt-2 w-full mb-2 border border-gray-300 hover:bg-gray-100">
-                Test Chatbot
-              </button>
-              <button className="bg-white text-black p-2 rounded mt-2 w-full mb-2 border border-gray-300 hover:bg-gray-100">
-                Integrate Chatbot on Your Website
-              </button>
-              <button className="bg-white text-black p-2 rounded mt-2 w-full mb-2 border border-gray-300 hover:bg-gray-100">
-                Mail Integration Instructions
-              </button>
+              <Link to={"/dummy"}>
+                <button className="bg-white text-black p-2 rounded mt-2 w-full mb-2 border border-gray-300 hover:bg-gray-100">
+                  Test Chatbot
+                </button>
+              </Link>
+
+              <Link to={"/setup"}>
+                <button className="bg-white text-black p-2 rounded mt-2 w-full mb-2 border border-gray-300 hover:bg-gray-100">
+                  Integrate Chatbot on Your Website
+                </button>
+              </Link>
+              <Link to={"/setup"}>
+                <button className="bg-white text-black p-2 rounded mt-2 w-full mb-2 border border-gray-300 hover:bg-gray-100">
+                  Mail Integration Instructions
+                </button>
+              </Link>
             </div>
 
             <div className="bg-white p-4 rounded mb-6 border border-gray-300">

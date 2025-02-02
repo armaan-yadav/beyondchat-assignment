@@ -23,9 +23,9 @@ import { Link, useNavigate } from "react-router";
 type Props = {};
 
 const SignupPage = (props: Props) => {
-  const [name, setName] = useState("Raj");
-  const [email, setEmail] = useState("yadavarmaan10@gmail.com");
-  const [password, setPassword] = useState("11111111");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtp, setShowOtp] = useState(false);
   const { toast } = useToast();
@@ -157,7 +157,7 @@ const SignupPage = (props: Props) => {
 
                   <Button
                     variant="outline"
-                    className="w-full h-10 md:h-11 gap-2"
+                    className="w-full h-10 md:h-11 gap-2 text-white"
                     onClick={(e) => {
                       e.preventDefault();
                     }}

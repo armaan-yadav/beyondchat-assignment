@@ -42,7 +42,7 @@ const SetupStep3 = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Link to="/dummy">
+          <Link to="/dummy" target="_blank">
             <Button className="w-full bg-blue-600 hover:bg-blue-700">
               Launch Test Environment
             </Button>
@@ -132,7 +132,7 @@ const SetupStep3 = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Link to={"/success"}>
+          <Link to={"/success"} target="_blank">
             <Button className="w-full bg-green-600 hover:bg-green-700">
               Run Integration Test
             </Button>
