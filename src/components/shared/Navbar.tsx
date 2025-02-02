@@ -12,7 +12,7 @@ const Navbar = () => {
   const { email } = useContext(Context);
 
   return (
-    <nav className="bg-white shadow-md dark:bg-gray-900 h-[66px]">
+    <nav className="bg-white shadow-md dark:bg-gray-900 h-[66px] z-[50]">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -82,7 +82,7 @@ const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 z-50"
           >
             <div className="flex flex-col p-4 space-y-4">
               {["Home", "About", "Contact", "Chatbot", "Admin"].map(

@@ -9,12 +9,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { backIn } from "framer-motion";
 import { useState } from "react";
 import { FaRegCopy } from "react-icons/fa";
 import { IoSendOutline } from "react-icons/io5";
+import { MdNavigateBefore } from "react-icons/md";
 import { Link } from "react-router";
 
-const SetupStep3 = () => {
+interface Props {
+  back: () => void;
+}
+
+const SetupStep3 = (props: Props) => {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -139,6 +145,16 @@ const SetupStep3 = () => {
           </Link>
         </CardContent>
       </Card>
+      <div className="flex justify-start pt-4">
+        <Button
+          variant="outline"
+          className="flex items-center gap-2 text-white"
+          onClick={props.back}
+        >
+          <MdNavigateBefore />
+          Back
+        </Button>
+      </div>
     </div>
   );
 };

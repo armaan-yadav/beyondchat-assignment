@@ -1,12 +1,21 @@
 import LoadingProgressBar from "@/components/shared/LoadingProgressBar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Context } from "@/context";
 import { scrapedPages } from "@/data";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
-const SetupStep2 = () => {
+interface Props {
+  next: () => void;
+  back: () => void;
+}
+
+const SetupStep2 = (props: Props) => {
   const [showPages, setShowPages] = useState(false);
+
+  const { companyDetails } = useContext(Context);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,6 +27,18 @@ const SetupStep2 = () => {
 
   return (
     <Card className="overflow-hidden p-2">
+      {companyDetails && (
+        <div className="flex items-center justify-start gap-2 my-1">
+          <img
+            src={companyDetails.favicon}
+            alt="favicon"
+            className="rounded-full overflow-hidden h-[30px]"
+          />
+          <h1 className="text-xl font-bold text-gray-600">
+            {companyDetails.sitename}
+          </h1>
+        </div>
+      )}
       <LoadingProgressBar />
       <AnimatePresence>
         {showPages && (
@@ -63,6 +84,20 @@ const SetupStep2 = () => {
             ))}
           </motion.div>
         )}
+        <div className="flex justify-between pt-4">
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 text-white"
+            onClick={props.back}
+          >
+            <MdNavigateBefore />
+            Back
+          </Button>
+          <Button className="flex items-center gap-2" onClick={props.next}>
+            Next
+            <MdNavigateNext />
+          </Button>
+        </div>
       </AnimatePresence>
     </Card>
   );

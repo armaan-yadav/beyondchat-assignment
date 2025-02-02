@@ -9,16 +9,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Context } from "@/context";
+import { toast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { AlertCircle, Loader2 } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { MdNavigateNext } from "react-icons/md";
 
 interface Props {
   companyUrl: string;
   setCompanyUrl: Dispatch<SetStateAction<string>>;
+  next: () => void;
 }
 
-interface MetaDataResponse {
+export interface MetaDataResponse {
   description: string;
   domain: string;
   duration: number;
@@ -29,16 +39,17 @@ interface MetaDataResponse {
   url: string;
 }
 
-const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
+const SetupStep1 = ({ companyUrl, setCompanyUrl, next }: Props) => {
   const [metadata, setMetadata] = useState<MetaDataResponse | null>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const { setCompanyDetails, companyDetails } = useContext(Context);
   const [errors, setErrors] = useState({
     name: "",
     url: "",
     description: "",
   });
 
-  const [isUrlValid, setIsUrlValid] = useState<boolean>(true);
+  const [isUrlValid, setIsUrlValid] = useState<boolean>(false);
 
   const inputVariants = {
     initial: { opacity: 0, x: -20 },
@@ -46,7 +57,7 @@ const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
   };
 
   const urlRegex =
-    /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/[a-zA-Z0-9#]+\/?)*\/?$/;
+    /^(https?:\/\/)?([\w.-]+)\.([a-zA-Z]{2,})(:[0-9]{1,5})?(\/[\w\-./?%&=]*)?$/;
 
   const validateUrl = (url: string) => {
     const isValid = urlRegex.test(url);
@@ -62,6 +73,7 @@ const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
     validateUrl(companyUrl);
 
     if (!isUrlValid) {
+      console.log("first");
       return;
     }
 
@@ -87,9 +99,16 @@ const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
       });
   };
 
+  useEffect(() => {
+    check();
+  }, []);
+
+  const check = () => {
+    companyDetails && setMetadata(companyDetails);
+  };
+
   return (
-    <div className="">
-      {" "}
+    <div>
       <Card className="shadow-lg rounded-lg bg-white w-full">
         <CardHeader>
           <motion.div
@@ -142,7 +161,7 @@ const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
 
           <Button
             onClick={fetchMetaData}
-            disabled={!isUrlValid || isFetching}
+            disabled={isFetching}
             className="w-full py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-200"
           >
             {isFetching ? (
@@ -171,7 +190,6 @@ const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
               <Input
                 value={metadata.sitename}
                 name="sitename"
-                readOnly
                 className="border-gray-300 p-3 rounded-lg"
               />
 
@@ -184,7 +202,6 @@ const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
               <Input
                 value={metadata.title}
                 name="title"
-                readOnly
                 className="border-gray-300 p-3 rounded-lg"
               />
 
@@ -197,13 +214,31 @@ const SetupStep1 = ({ companyUrl, setCompanyUrl }: Props) => {
               <Textarea
                 value={metadata.description}
                 name="description"
-                readOnly
                 className="border-gray-300 p-3 rounded-lg"
               />
             </div>
           )}
         </CardContent>
       </Card>
+
+      <div className="flex justify-end pt-4">
+        <Button
+          className="flex items-center gap-2"
+          onClick={() => {
+            if (metadata) {
+              setCompanyDetails(metadata);
+            } else {
+              toast({ description: "Something went wrong. Please try again" });
+              return;
+            }
+            next();
+          }}
+          disabled={!metadata}
+        >
+          Next
+          <MdNavigateNext />
+        </Button>
+      </div>
     </div>
   );
 };
