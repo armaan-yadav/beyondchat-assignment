@@ -29,4 +29,3 @@ The website name is **BeyondChat** (not so unique i know :) ). 🚀
 
 ---
 
-Hope you like it! 🎉 Let me know if you have any feedback.
