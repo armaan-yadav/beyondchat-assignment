@@ -1,24 +1,23 @@
+import { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router";
 import { Toaster } from "./components/ui/toaster";
+import { Context } from "./context";
 import MainLayout from "./pages/_layout/MainLayout";
+import AboutPage from "./pages/aboutPage/AboutPage";
 import AdminPage from "./pages/adminPage/AdminPage";
+import AiChatbotPage from "./pages/aiChatbotPage/aiChatbotPage";
 import ChatbotPage from "./pages/chatbotPage/ChatbotPage";
 import DummyWebsite from "./pages/dummy/DummyWebiste";
+import ErrorPage from "./pages/errorPage/ErrorPage";
 import FailurePage from "./pages/failurePage/FailurePage";
+import FeedbackPage from "./pages/feedbackPage/FeedbackPage";
 import LandingPage from "./pages/landingPage/LandingPage";
+import LoadingPage from "./pages/loadingPage/LoadingPage";
 import SetupPage from "./pages/setupPage/SetupPage";
 import SigninPage from "./pages/signinPage/SigninPage";
 import SignupPage from "./pages/signupPage/SignupPage";
 import SuccessPage from "./pages/successPage/SuccessPage";
-import ErrorPage from "./pages/errorPage/ErrorPage";
-import AboutPage from "./pages/aboutPage/AboutPage";
-import AiChatbotPage from "./pages/aiChatbotPage/aiChatbotPage";
-import FeedbackPage from "./pages/feedbackPage/FeedbackPage";
-import { useContext, useEffect } from "react";
 import { authServices } from "./services/authServices";
-import { Context } from "./context";
-import LoadingPage from "./pages/loadingPage/LoadingPage";
-import PageTransitionWrapper from "./components/shared/PageTransitionWrapper";
 
 function App() {
   const { setEmail, isLoading, setIsLoading } = useContext(Context);
