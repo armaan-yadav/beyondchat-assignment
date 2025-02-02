@@ -1,18 +1,27 @@
-# Project Submission
+# 📌 Project Submission: BeyondChat
 
-Hey everyone, this is my submission for the assignment.The website name is BeyondChat(not so unique).
+Hey everyone, this is my submission for the assignment.  
+The website name is **BeyondChat** (not so unique i know :) ). 🚀
 
-# Technologies Used
+---
 
--> React JS
--> Tailwind for styling
--> Appwrite for Authentication and OTP functionality
--> ShadCN,PrimeReact and others for UI
+## ✨ Features
 
-# Features
+✅ **Customizable ChatBot Integration** – Easily adaptable chatbot functionality  
+✅ **AI Chatbot Integration** – Smart AI-driven chatbot  
+✅ **Auto-fetch Website Metadata** – Extracts metadata from URLs  
+✅ **Realtime Email OTP Authentication** – Secure login system  
+✅ **Minimalistic & Responsive Design** – Works seamlessly across all devices
 
--> Working Customizable ChatBot Integration
--> AI Chatbot Integration
--> Auto-fetch meta data of website from url
--> Realtime email OTP based authentication
--> Minimilistic and Responsive design
+---
+
+## 🛠️ Technologies Used
+
+- **React JS** – Frontend framework
+- **Tailwind CSS** – For styling
+- **Appwrite** – Authentication & OTP functionality
+- **ShadCN & PrimeReact** – UI components & enhancements
+
+---
+
+Hope you like it! 🎉 Let me know if you have any feedback.
