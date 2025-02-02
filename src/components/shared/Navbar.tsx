@@ -2,12 +2,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md dark:bg-gray-900">
+    <nav className="bg-white shadow-md dark:bg-gray-900 h-[66px]">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -16,8 +17,9 @@ const Navbar = () => {
         >
           <Link
             to="/"
-            className="text-2xl font-bold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+            className="text-2xl font-bold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 flex items-center "
           >
+            <img src={logo} alt="logo" className="h-[30px]" />
             Beyond Chat
           </Link>
         </motion.div>
@@ -40,6 +42,18 @@ const Navbar = () => {
               </motion.div>
             )
           )}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 5 * 0.1 }}
+          >
+            <Link
+              to={`/dummy`}
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+            >
+              Demo
+            </Link>
+          </motion.div>
         </div>
         <motion.button
           onClick={() => setIsOpen(!isOpen)}

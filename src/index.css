@@ -103,3 +103,18 @@ html {
 .setup-stepper .p-stepper-step-complete .p-menuitem-text {
   color: white !important;
 }
+
+.ai .react-chatbot-kit-chat-container {
+  width: 90vw;
+}
+
+.ai .react-chatbot-kit-chat-bot-message {
+  margin-left: 0;
+  width: fit-content;
+  color: black;
+  background: linear-gradient(to right, #a5b4fc, #bfdbfe);
+}
+
+.ai .react-chatbot-kit-user-chat-message {
+  width: fit-content;
+}

@@ -42,7 +42,7 @@ const SetupStep2 = () => {
               >
                 <div className="flex items-center">
                   <motion.div
-                    className={`w-2 h-2 rounded-full mr-3 bg-black `}
+                    className={`w-2 h-2 rounded-full mr-3 bg-gradient-to-r from-blue-400 to-indigo-600 `}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
@@ -54,7 +54,7 @@ const SetupStep2 = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="hover:bg-gray-200 transition-colors"
+                    className="hover:bg-gray-200 transition-colors text-white"
                   >
                     View Details
                   </Button>

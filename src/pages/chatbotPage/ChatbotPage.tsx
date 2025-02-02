@@ -3,6 +3,7 @@ import config from "@/chatbot/config";
 import MessageParser from "@/chatbot/MessageParser";
 import { Chatbot } from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
+import IConfig from "react-chatbot-kit/build/src/interfaces/IConfig";
 
 const ChatbotPage = () => {
   return (
@@ -10,7 +11,7 @@ const ChatbotPage = () => {
       <Chatbot
         messageParser={MessageParser}
         actionProvider={ActionProvider}
-        config={config}
+        config={config as IConfig}
       />
     </div>
   );

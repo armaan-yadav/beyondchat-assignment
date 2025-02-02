@@ -8,6 +8,7 @@ import { MessageCircle, X } from "lucide-react";
 import { MouseEventHandler, useState } from "react";
 import "react-chatbot-kit/build/main.css";
 import LandingPage from "./components/LandingPage";
+import IConfig from "react-chatbot-kit/build/src/interfaces/IConfig";
 
 const FloatingChatButton = ({
   isOpen,
@@ -39,8 +40,8 @@ const ChatbotContainer = ({ isOpen }: { isOpen: boolean }) => (
     className="fixed bottom-24 right-6 z-50"
   >
     <Chatbot
-      headerText="Want a chatbot like this?"
-      config={config}
+      headerText="This is how chatbot will look like"
+      config={config as IConfig}
       actionProvider={ActionProvider}
       messageParser={MessageParser}
     />

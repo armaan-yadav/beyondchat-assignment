@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const LandingPage = () => {
   return (
-    <section className="h-screen flex flex-col justify-center items-center text-center px-6 md:px-12 bg-gradient-to-r from-blue-200 to-indigo-300">
+    <section className="h-[calc(100vh-66px)] flex flex-col justify-center items-center text-center px-6 md:px-12 bg-gradient-to-r from-blue-200 to-indigo-300">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -33,6 +33,18 @@ const LandingPage = () => {
         <Link to={"/setup"}>
           <Button className="px-8 py-4 text-lg font-semibold bg-blue-600 text-white rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 transform hover:scale-105">
             Get Started
+          </Button>
+        </Link>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+        className="mt-8"
+      >
+        <Link to={"/ai-bot"}>
+          <Button className="px-8 py-4 text-lg font-semibold bg-blue-600 text-white rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 transform hover:scale-105">
+            Checkout our AI Chatbot
           </Button>
         </Link>
       </motion.div>

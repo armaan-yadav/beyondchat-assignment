@@ -12,6 +12,7 @@ import SignupPage from "./pages/signupPage/SignupPage";
 import SuccessPage from "./pages/successPage/SuccessPage";
 import ErrorPage from "./pages/errorPage/ErrorPage";
 import AboutPage from "./pages/aboutPage/AboutPage";
+import AiChatbotPage from "./pages/aiChatbotPage/aiChatbotPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/failure" element={<FailurePage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/chatbot" element={<ChatbotPage />} />
+          <Route path="/ai-bot" element={<AiChatbotPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
 

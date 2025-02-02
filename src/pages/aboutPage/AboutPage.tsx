@@ -26,7 +26,7 @@ const AboutPage = () => {
 
   return (
     <motion.div
-      className="min-h-screen flex items-center justify-center bg-slate-50 p-6"
+      className="flex items-center justify-center bg-gradient-to-r from-blue-200 to-indigo-300 h-[calc(100vh-66px)] p-6"
       initial="hidden"
       animate="visible"
       variants={containerVariants}

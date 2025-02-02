@@ -39,7 +39,7 @@ const LoadingProgressBar = () => {
             stiffness: 100,
             damping: 20,
           }}
-          className="h-full bg-black rounded-full"
+          className="h-full bg-gradient-to-r from-blue-300 to-indigo-600 rounded-full"
         />
       </div>
     </div>

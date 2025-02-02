@@ -41,7 +41,7 @@ const SetupPage = () => {
   };
 
   return (
-    <div className="relative overflow-hidden max-w-full py-4">
+    <div className="relative  max-w-full py-4 bg-gradient-to-r from-blue-200 to-indigo-300 min-h-[calc(100vh-66px)]">
       <div className="lg:mx-auto lg:max-w-4xl">
         <Stepper ref={stepperRef} pt={stepperStyle}>
           <StepperPanel
@@ -103,7 +103,7 @@ const SetupPage = () => {
                 <div className="flex justify-between pt-4">
                   <Button
                     variant="outline"
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 text-white"
                     onClick={handlePrev}
                   >
                     <MdNavigateBefore />
