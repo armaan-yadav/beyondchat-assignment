@@ -9,7 +9,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { backIn } from "framer-motion";
 import { useState } from "react";
 import { FaRegCopy } from "react-icons/fa";
 import { IoSendOutline } from "react-icons/io5";
